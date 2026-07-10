@@ -25,8 +25,6 @@ document.querySelectorAll('.open-contact').forEach(button=>button.addEventListen
 document.querySelectorAll('[data-close-modal]').forEach(button=>button.addEventListener('click',()=>closeModal(button.closest('.modal'))));
 document.addEventListener('keydown',event=>{if(event.key==='Escape')document.querySelectorAll('.modal.open').forEach(closeModal)});
 
-// Privacy-conscious visitor tracking. A random browser ID is hashed on the server;
-// the website never stores a visitor's raw identifier or IP address.
 function getVisitorId(){
   let id=localStorage.getItem('portfolioVisitorId');
   if(!id){id=(crypto.randomUUID?crypto.randomUUID():`${Date.now()}-${Math.random()}`);localStorage.setItem('portfolioVisitorId',id)}
