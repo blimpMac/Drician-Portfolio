@@ -1,145 +1,104 @@
 # Drician Cordon Portfolio Website
 
-This version includes:
+This repository contains a personal portfolio website for Drician Francis D. Cordon. The site presents featured projects, background information, experience, resume and CV previews, a private contact form, visitor analytics, and site feedback collection.
 
-- The **DC icon and “Drician Cordon” label have been removed** from the upper-left navigation.
-- Clean portrait with no floating labels or overlay cards.
-- Resume and CV preview modals, plus PDF and DOCX downloads.
-- Private-recipient contact form through Netlify Forms.
-- Visitor analytics stored in Supabase.
-- A password-protected analytics dashboard at `/admin/`.
-- A 1–5 star rating and written feedback form.
-- No recipient email address is embedded in the public HTML or JavaScript.
+The website is designed as a static frontend supported by Netlify Functions and Supabase for private server-side features.
 
-## Important architecture note
+## What This Website Uses
 
-A secure visitor tracker cannot be implemented with HTML and JavaScript alone. This project therefore uses:
+- HTML for the page structure
+- CSS for layout, responsive styling, animations, and visual design
+- JavaScript for project filtering, modals, document previews, visitor tracking, and feedback submission
+- Netlify for hosting, redirects, forms, and serverless functions
+- Netlify Forms for private contact form handling
+- Netlify Functions for secure backend endpoints
+- Supabase for storing visitor analytics and feedback data
+- GitHub API for displaying the public repository count
 
-- **Netlify** for hosting, forms, and serverless functions.
-- **Supabase** for the private analytics database.
-- Netlify environment variables for your administrator username, password, database credentials, and signing secrets.
+## What This Website Utilizes
 
-The administrator password is never placed in the public website files. The dashboard session is stored in an `HttpOnly`, `Secure`, `SameSite=Strict` cookie.
+- A responsive portfolio layout for desktop and mobile screens
+- Featured project cards with category filters
+- Resume and CV preview modals with PDF and DOCX downloads
+- A contact modal connected to Netlify Forms
+- Visitor tracking through server-side Netlify Functions
+- A feedback form with rating and written suggestions
+- A protected admin dashboard for viewing analytics and feedback
+- Environment variables for private credentials and secrets
+- Supabase tables for storing page visits and feedback records
 
----
-
-# Deployment guide
-
-## 1. Create a GitHub repository
-
-1. Sign in to GitHub.
-2. Select **New repository**.
-3. Name it, for example, `drician-portfolio`.
-4. Keep it private or public. Either works with Netlify.
-5. Extract this ZIP.
-6. Upload the contents of the `drician-portfolio` folder to the repository root.
-
-The repository root should directly contain `index.html`, `netlify.toml`, `styles.css`, `script.js`, `admin`, `netlify`, and the other folders.
-
-## 2. Create the Supabase database
-
-1. Create a project at Supabase.
-2. Open **SQL Editor**.
-3. Open `supabase-schema.sql` from this package.
-4. Paste the entire file into the SQL Editor and run it.
-5. In Supabase, open **Project Settings → API**.
-6. Copy these values for the next step:
-   - Project URL
-   - `service_role` key
-
-Keep the service-role key private. Never put it in `script.js`, HTML, or a GitHub commit.
-
-## 3. Deploy through Netlify
-
-1. Sign in to Netlify.
-2. Select **Add new project → Import an existing project**.
-3. Connect GitHub and choose the portfolio repository.
-4. Netlify should read `netlify.toml` automatically.
-5. Leave the build command empty.
-6. The publish directory should be `.`.
-7. Deploy the site.
-
-## 4. Configure private environment variables
-
-In Netlify, open:
-
-**Project configuration → Environment variables**
-
-Add all six variables below:
-
-| Variable | Value |
-|---|---|
-| `SUPABASE_URL` | Your Supabase project URL |
-| `SUPABASE_SERVICE_ROLE_KEY` | Your private Supabase `service_role` key |
-| `ADMIN_USERNAME` | The private username you want to use |
-| `ADMIN_PASSWORD` | A long, unique password with at least 16 characters |
-| `ADMIN_SESSION_SECRET` | A random secret of at least 32 characters |
-| `VISITOR_HASH_SALT` | Another random secret of at least 32 characters |
-
-Generate the last two values with a password manager or this PowerShell command:
-
-```powershell
--join ((48..57)+(65..90)+(97..122) | Get-Random -Count 48 | ForEach-Object {[char]$_})
-```
-
-After adding the variables, select **Deploys → Trigger deploy → Deploy site** so the functions receive the new configuration.
-
-## 5. Configure the hidden recipient for the contact form
-
-The contact form uses Netlify Forms and does not expose your recipient email in the source code.
-
-1. Submit one test contact message from the deployed site.
-2. Open the Netlify project dashboard.
-3. Open **Forms** and verify that `portfolio-contact` appears.
-4. Open **Project configuration → Notifications → Emails and webhooks**.
-5. Add a **Form submission notification**.
-6. Enter the private recipient email in Netlify's dashboard only.
-
-The recipient address remains outside the public website files.
-
-## 6. Access the analytics dashboard
-
-Open:
+## Folder Structure
 
 ```text
-https://your-site-name.netlify.app/admin/
+drician-portfolio/
+|-- admin/
+|   |-- admin.css
+|   |-- admin.js
+|   `-- index.html
+|-- assets/
+|   `-- profile.jpg
+|-- documents/
+|   |-- pdf/
+|   |   |-- Drician-Cordon-Professional-CV.pdf
+|   |   `-- Drician-Cordon-Resume.pdf
+|   |-- Drician-Cordon-Professional-CV.docx
+|   `-- Drician-Cordon-Resume.docx
+|-- netlify/
+|   `-- functions/
+|       |-- lib/
+|       |   `-- common.js
+|       |-- admin-login.js
+|       |-- admin-logout.js
+|       |-- admin-stats.js
+|       |-- feedback.js
+|       `-- track.js
+|-- index.html
+|-- netlify.toml
+|-- README.md
+|-- script.js
+|-- styles.css
+|-- supabase-schema.sql
+`-- thanks.html
 ```
 
-Sign in with the values you configured as `ADMIN_USERNAME` and `ADMIN_PASSWORD`.
+## Main Files
 
-The dashboard displays:
+- `index.html` contains the main portfolio page.
+- `styles.css` contains the full visual design and responsive styling.
+- `script.js` handles browser interactions, project rendering, modals, tracking requests, and feedback submission.
+- `thanks.html` is the confirmation page used after contact form submission.
+- `netlify.toml` defines the Netlify publish folder, functions folder, and API redirects.
+- `supabase-schema.sql` contains the database tables needed for analytics and feedback.
 
-- Total page visits retained in the database
-- Unique browser identifiers
-- Today's visits
-- Average site rating
-- Visits for the last 14 days
-- Recent ratings and written improvement suggestions
+## Admin Area
 
-The dashboard URL itself is not a secret. Security comes from server-side authentication and the private environment variables. Do not rely on merely hiding the URL.
+The `admin` folder contains the private analytics dashboard interface. It connects to Netlify Functions that check the administrator session and return site statistics.
 
----
+The admin password and Supabase service key are not stored in the public website files. They must be configured as Netlify environment variables.
 
-# How tracking works
+## Serverless Functions
 
-When a visitor opens the deployed site:
+The `netlify/functions` folder contains backend endpoints used by the website:
 
-1. The browser creates a random local identifier.
-2. A Netlify Function hashes that identifier with your private salt.
-3. Only the hash, page path, referrer, timestamp, and browser user-agent are stored.
-4. The raw identifier and administrator credentials are not stored in the public code.
+- `track.js` records page visits in Supabase.
+- `feedback.js` stores submitted ratings and comments.
+- `admin-login.js` verifies administrator credentials.
+- `admin-logout.js` clears the administrator session.
+- `admin-stats.js` returns analytics and feedback data for the dashboard.
+- `lib/common.js` contains shared helpers for JSON responses, cookies, sessions, and Supabase REST requests.
 
-The current implementation does not deliberately store IP addresses. Netlify may retain standard platform request logs according to its own settings and policies.
+## Database
 
-## Local preview limitations
+Supabase is used for storing private analytics data. The schema file creates tables for:
 
-Opening `index.html` directly from a `file://` path still previews the design, document modals, and navigation. These server-backed features require the deployed Netlify site:
+- Portfolio page visits
+- Visitor hashes
+- Page paths and referrers
+- User feedback
+- Star ratings
+- Optional feedback names and comments
 
-- Contact form processing
-- Visitor tracking
-- Rating and feedback submission
-- Administrator login and analytics dashboard
+## Security Notes
 
-## Updating the site
+Private values such as the Supabase service-role key, administrator username, administrator password, session secret, and visitor hash salt are stored in Netlify environment variables.
 
-Edit the files, commit the changes to GitHub, and push them. Netlify will automatically deploy the new version.
