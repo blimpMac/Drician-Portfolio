@@ -23,3 +23,4 @@ create index if not exists portfolio_feedback_created_at_idx on public.portfolio
 
 alter table public.portfolio_views enable row level security;
 alter table public.portfolio_feedback enable row level security;
+-- No public policies are created. Only your Netlify Functions, using the Supabase service-role key, can read or write these tables.

@@ -110,7 +110,8 @@
     <div class="modal-panel contact-modal-panel">
       <div class="modal-head"><div><p class="eyebrow">LET'S TALK</p><h3 id="contactTitle">Send a direct message</h3></div><button class="modal-close" type="button" data-close-modal aria-label="Close form">×</button></div>
       <p class="form-intro">Complete the form below and I will respond as soon as possible.</p>
-      <form id="contactForm" name="portfolio-contact" method="POST" action="thanks.html" data-netlify="true" netlify-honeypot="bot-field">
+      <!-- Netlify Forms: keep the form name and hidden form-name field in sync. -->
+      <form id="contactForm" name="portfolio-contact" method="POST" action="/thanks.html" data-netlify="true" netlify-honeypot="bot-field">
         <input type="hidden" name="form-name" value="portfolio-contact">
         <p class="honeypot"><label>Do not fill this out: <input name="bot-field"></label></p>
         <div class="form-grid">
