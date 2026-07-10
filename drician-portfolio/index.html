@@ -12,6 +12,14 @@
 </head>
 <body>
   <div class="cursor-glow"></div><div class="noise"></div>
+  <form name="portfolio-contact" method="POST" action="/thanks.html" data-netlify="true" netlify netlify-honeypot="bot-field" hidden>
+    <input type="hidden" name="form-name" value="portfolio-contact">
+    <input name="bot-field">
+    <input name="name" type="text">
+    <input name="email" type="email">
+    <input name="subject" type="text">
+    <textarea name="message"></textarea>
+  </form>
   <header class="nav nav-no-brand">
     <nav><a href="#work">Work</a><a href="#about">About</a><a href="#experience">Experience</a><a href="#documents">Resume</a></nav>
     <button class="pill small open-contact" type="button">Let's talk ↗</button>
@@ -110,7 +118,7 @@
     <div class="modal-panel contact-modal-panel">
       <div class="modal-head"><div><p class="eyebrow">LET'S TALK</p><h3 id="contactTitle">Send a direct message</h3></div><button class="modal-close" type="button" data-close-modal aria-label="Close form">×</button></div>
       <p class="form-intro">Complete the form below and I will respond as soon as possible.</p>
-      <form id="contactForm" name="portfolio-contact" method="POST" action="/thanks.html" data-netlify="true" netlify-honeypot="bot-field">
+      <form id="contactForm" name="portfolio-contact" method="POST" action="/thanks.html" data-netlify="true" netlify netlify-honeypot="bot-field">
         <input type="hidden" name="form-name" value="portfolio-contact">
         <p class="honeypot"><label>Do not fill this out: <input name="bot-field"></label></p>
         <div class="form-grid">
