@@ -143,3 +143,11 @@ Opening `index.html` directly from a `file://` path still previews the design, d
 ## Updating the site
 
 Edit the files, commit the changes to GitHub, and push them. Netlify will automatically deploy the new version.
+
+## Project showcase
+
+The featured projects are BlockGo, Digital Survey System (`ASPNet2.0`), Library Management System (`FinalProjectForASPNET`), and React MessengerStyle. Visitors can switch between cards and a list; the selected layout is remembered locally. Clicking a project opens its description, features, tech stack and screenshot gallery. The repository opens only through the separate source link.
+
+Screenshot assets are stored in `assets/projects/`. Survey/Library captures contain sample data and BlockGo captures contain demo profiles, as labeled in each showcase. To add a demo reel later, set the relevant project's `demo` field in `script.js` to a local video path or hosted video URL. The video player remains hidden until that field is populated.
+
+Netlify must have this repository connected, `main` selected as its production branch, and automatic builds enabled. Set the base directory to `drician-portfolio` so its `netlify.toml`, publish directory and functions resolve correctly. The repository alone cannot confirm those Netlify dashboard settings or the live site URL.

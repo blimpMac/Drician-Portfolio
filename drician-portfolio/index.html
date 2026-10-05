@@ -52,7 +52,7 @@
 
     <section id="work" class="section reveal">
       <div class="section-head"><div><p class="eyebrow">SELECTED WORK</p><h2>Projects with a clear purpose.</h2></div><div class="filters"><button class="active" data-filter="all">All</button><button data-filter="web">Web</button><button data-filter="system">Systems</button><button data-filter="blockchain">Blockchain</button></div></div>
-      <div id="projects" class="project-grid"></div>
+      <div class="view-controls" role="group" aria-label="Project layout"><span>View as</span><button type="button" data-project-view="cards" aria-pressed="true">Cards</button><button type="button" data-project-view="list" aria-pressed="false">List</button></div><div id="projects" class="project-grid"></div>
       <div class="center"><a class="pill ghost" href="https://github.com/blimpMac?tab=repositories" target="_blank" rel="noreferrer">View all repositories ↗</a></div>
     </section>
 
@@ -99,10 +99,10 @@
       </form>
     </section>
 
-    <section class="contact reveal"><p class="eyebrow">CONTACT</p><h2>Have a project, internship, or collaboration in mind?</h2><button class="big-mail open-contact" type="button">Send me a message ↗</button><div class="socials"><a href="https://github.com/blimpMac" target="_blank" rel="noreferrer">GitHub</a><a href="https://linkedin.com/in/drician-cordon-293b20373" target="_blank" rel="noreferrer">LinkedIn</a></div></section>
+    <section class="contact reveal"><p class="eyebrow">CONTACT</p><h2>Have a project, internship, or collaboration in mind?</h2><button class="big-mail open-contact" type="button">Send me a message ↗</button><div class="socials"><a href="https://github.com/blimpMac" target="_blank" rel="noreferrer" aria-label="GitHub profile"><img src="assets/github.svg" alt="GitHub" width="26" height="26"></a><a href="https://linkedin.com/in/drician-cordon-293b20373" target="_blank" rel="noreferrer" aria-label="LinkedIn profile"><img src="assets/linkedin.svg" alt="LinkedIn" width="26" height="26"></a></div></section>
   </main>
 
-  <footer><span>© 2026 Drician Francis D. Cordon</span><span>Designed for clarity, motion, and impact.</span></footer>
+  <footer><span>© 2026 Drician Francis D. Cordon</span><div class="socials footer-socials"><a href="https://github.com/blimpMac" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile"><img src="assets/github.svg" alt="GitHub" width="26" height="26"></a><a href="https://linkedin.com/in/drician-cordon-293b20373" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile"><img src="assets/linkedin.svg" alt="LinkedIn" width="26" height="26"></a></div></footer>
 
   <div class="modal" id="previewModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="previewTitle">
     <div class="modal-backdrop" data-close-modal></div>
@@ -134,6 +134,7 @@
     </div>
   </div>
 
+<div class="modal" id="projectModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="projectTitle"><div class="modal-backdrop" data-close-modal></div><div class="modal-panel project-modal-panel"><div class="modal-head"><div><p class="eyebrow">PROJECT SHOWCASE</p><h3 id="projectTitle"></h3></div><button class="modal-close" type="button" data-close-modal aria-label="Close project">×</button></div><div class="project-detail-body"><p id="projectDescription" class="project-intro"></p><p id="projectFeatures"></p><h4>Tech stack</h4><div id="projectStack" class="skill-cloud"></div><h4>Interface screenshots</h4><p id="projectNote" class="capture-note"></p><div id="projectGallery" class="screenshot-gallery"></div><video id="projectDemo" controls preload="none" hidden aria-label="Project demo reel"></video><a id="projectRepository" class="pill ghost" target="_blank" rel="noopener noreferrer">View source on GitHub ↗</a></div></div></div>
   <script src="script.js"></script>
 </body>
 </html>
