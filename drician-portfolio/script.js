@@ -196,7 +196,7 @@ window.addEventListener('mousemove',e=>{const g=document.querySelector('.cursor-
 const tilt=document.querySelector('.tilt');tilt?.addEventListener('mousemove',e=>{const r=tilt.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;tilt.style.transform=`perspective(900px) rotateY(${x*5}deg) rotateX(${-y*5}deg)`});tilt?.addEventListener('mouseleave',()=>tilt.style.transform='');
 
 const documents={
- resume:{title:'OJT Resume Preview',pdf:'documents/pdf/Drician-Cordon-Resume.pdf',docx:'documents/Drician-Cordon-Resume.docx'},
+ resume:{title:'Creative Resume Preview',pdf:'documents/pdf/Drician-Creative-Resume.pdf',docx:'documents/Drician-Creative-Resume.docx'},
  cv:{title:'Professional CV Preview',pdf:'documents/pdf/Drician-Cordon-Professional-CV.pdf',docx:'documents/Drician-Cordon-Professional-CV.docx'}
 };
 const previewModal=document.querySelector('#previewModal');
