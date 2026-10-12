@@ -191,9 +191,21 @@ function showProject(p,trigger){
  openModal(document.querySelector('#projectModal'));
 }
 renderProjects();
-const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.12});document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+const revealSections=[...document.querySelectorAll('.reveal')];
+const reduceMotion=window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+if('IntersectionObserver' in window && !reduceMotion){
+ document.body.classList.add('motion-ready');
+ const io=new IntersectionObserver((entries,observer)=>{
+  entries.forEach(entry=>{if(entry.isIntersecting){
+   entry.target.classList.add('visible');
+   observer.unobserve(entry.target);
+  }});
+ },{threshold:0.01,rootMargin:'0px 0px -4% 0px'});
+ revealSections.forEach(section=>io.observe(section));
+} else {
+ revealSections.forEach(section=>section.classList.add('visible'));
+}
 window.addEventListener('mousemove',e=>{const g=document.querySelector('.cursor-glow');g.style.left=e.clientX+'px';g.style.top=e.clientY+'px'});
-const tilt=document.querySelector('.tilt');tilt?.addEventListener('mousemove',e=>{const r=tilt.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;tilt.style.transform=`perspective(900px) rotateY(${x*5}deg) rotateX(${-y*5}deg)`});tilt?.addEventListener('mouseleave',()=>tilt.style.transform='');
 
 const documents={
  resume:{title:'Creative Resume Preview',pdf:'documents/pdf/Drician-Creative-Resume.pdf',docx:'documents/Drician-Creative-Resume.docx'},
@@ -204,7 +216,7 @@ const contactModal=document.querySelector('#contactModal');
 let previousFocus=null;
 function openModal(modal){previousFocus=document.activeElement;modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.classList.add('modal-open');modal.querySelector('.modal-close')?.focus()}
 function closeModal(modal){modal.classList.remove('open');modal.setAttribute('aria-hidden','true');document.body.classList.remove('modal-open');if(modal===previewModal)document.querySelector('#previewFrame').src='about:blank';previousFocus?.focus()}
-document.querySelectorAll('.open-preview').forEach(button=>button.addEventListener('click',()=>{const doc=documents[button.dataset.document];document.querySelector('#previewTitle').textContent=doc.title;document.querySelector('#previewFrame').src=doc.pdf+'#toolbar=1&navpanes=0&view=FitH';document.querySelector('#previewDownloadPdf').href=doc.pdf;document.querySelector('#previewDownloadDocx').href=doc.docx;openModal(previewModal)}));
+document.querySelectorAll('.open-preview').forEach(button=>button.addEventListener('click',()=>{const doc=documents[button.dataset.document];document.querySelector('#previewTitle').textContent=doc.title;document.querySelector('#previewFrame').src=doc.pdf+'#toolbar=1&navpanes=0&view=Fit';document.querySelector('#previewDownloadPdf').href=doc.pdf;document.querySelector('#previewDownloadDocx').href=doc.docx;openModal(previewModal)}));
 document.querySelectorAll('.open-contact').forEach(button=>button.addEventListener('click',()=>openModal(contactModal)));
 document.querySelectorAll('[data-close-modal]').forEach(button=>button.addEventListener('click',()=>closeModal(button.closest('.modal'))));
 document.addEventListener('keydown',event=>{if(event.key==='Escape')document.querySelectorAll('.modal.open').forEach(closeModal)});

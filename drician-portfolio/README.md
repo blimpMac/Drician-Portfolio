@@ -162,3 +162,15 @@ The Minor Works page includes two additional projects from the linked GitHub acc
 The four SVG interface images in `assets/projects/` are **source-based visual reconstructions, not runtime screenshots**, because the original project repositories do not contain screenshots. They are labeled accordingly on the page. To replace them with real captures, take screenshots from the desktop applications, add the resulting images to `assets/projects/`, update each project's `screenshots` entries in `projects-data.js`, and remove its `previewNotice` after the assets are verified.
 
 `projects-data.js` holds the Minor Works catalog and excerpts; `catalog.js` renders the project gallery and code block. Keep source links aligned with the code excerpt's repository and branch.
+
+## Page alignment and navigation fixes
+
+- Home now begins at the top of the homepage from every portfolio page. The **Explore projects** button still jumps directly to the projects section.
+- The main heading is **Welcome to BlimpMac's Software Development Portfolio**.
+- Homepage sections are aligned within the same responsive maximum-width layout as Major Works and Minor Works.
+- Internal section links use consistent scroll positioning, taking account of the floating header and the section's padding; direct cross-page hash links are re-aligned after fonts have loaded.
+- Screenshot galleries and project thumbnails use `object-fit: contain` so the full application interface is visible rather than clipped.
+- Reveal animations are progressive enhancements; if animations are unavailable, sections remain visible.
+- PDF previews open using the embedded viewer's fit-page setting rather than fit-width alone. Browser PDF renderers may offer their own zoom and scroll controls.
+
+The website is static HTML/CSS/JavaScript. After pushing or merging to `main`, allow your Netlify configuration to deploy it and verify the navigation on your target devices.
