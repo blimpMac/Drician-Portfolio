@@ -3,3 +3,150 @@
 @media(max-width:900px){.nav{height:68px}.nav .menu{display:block;order:0;margin:0 0 0 auto;border:1px solid var(--line);border-radius:10px;width:44px;height:44px;cursor:pointer;line-height:1}.refreshed-nav nav,.nav-no-brand nav{display:none;position:absolute;top:calc(100% + 1px);left:16px;right:16px;margin:0;padding:12px;flex-direction:column;align-items:stretch;gap:2px;background:#161c27;border:1px solid var(--line);border-radius:14px;box-shadow:0 20px 50px #0009}.refreshed-nav nav.is-open,.nav-no-brand nav.is-open{display:flex}.nav nav a{display:block;padding:12px 14px;border-radius:9px}.nav nav a:hover{background:#263044}.nav-contact,.nav-no-brand .small{display:none!important}.hero{grid-template-columns:1fr;gap:20px;min-height:0;padding-top:115px}.hero-visual{min-height:340px}.portrait-wrap{width:min(330px,78%)}.section{padding-block:75px}.doc-grid,.feedback-section{grid-template-columns:1fr}.section-head{align-items:start}.catalog-project-heading{align-items:start;flex-direction:column}.project-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:600px){.hero,.section{padding-inline:20px}.hero h1{font-size:clamp(39px,10vw,52px)}.hero-visual{min-height:335px}.hero .metrics{gap:14px}.metrics div{min-width:90px;width:auto}.project-grid,.catalog-gallery{grid-template-columns:1fr}.catalog-shot:first-child{grid-column:auto}.catalog-shot:first-child img{aspect-ratio:16/9}.project-card{width:100%}.catalog-main{padding:100px 20px 60px}.catalog-heading{padding:10px 0 30px}.catalog-project{padding:40px 0}.catalog-project-heading .pill{width:100%}.doc-card{padding:22px}.feedback-card{padding:20px}.contact{padding:85px 20px}.footer-socials{margin:0}}
 @media(hover:none),(pointer:coarse){.cursor-glow{display:none}.project-card:hover,.doc-card:hover{transform:none}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}}
+
+/* Centered, brand-free navigation and subtle motion refinements. */
+.refreshed-nav {
+  justify-content: center;
+  padding-inline: 20px;
+}
+.refreshed-nav nav {
+  margin: 0;
+  gap: clamp(4px, .65vw, 11px);
+  padding: 7px 10px;
+  border: 1px solid rgba(138,164,255,.17);
+  border-radius: 999px;
+  background: rgba(18,23,33,.86);
+  box-shadow: 0 10px 36px rgba(0,0,0,.16);
+  animation: nav-appear .52s ease both;
+}
+.refreshed-nav nav a {
+  padding: 9px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: background-color .23s ease, color .23s ease;
+}
+.refreshed-nav nav a:hover,
+.refreshed-nav nav a:focus-visible {
+  color: #fff;
+  background: rgba(138,164,255,.14);
+}
+.refreshed-nav nav a[aria-current="page"] {
+  background: rgba(138,164,255,.2);
+  color: #fff !important;
+}
+@keyframes nav-appear {
+  from { opacity: 0; transform: translateY(-12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes gentle-rise {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes portrait-breathe {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.hero.visible .hero-copy > .eyebrow {
+  animation: gentle-rise .56s ease .08s both;
+}
+.hero.visible .hero-copy > h1 {
+  animation: gentle-rise .64s ease .16s both;
+}
+.hero.visible .hero-copy > .lead {
+  animation: gentle-rise .64s ease .23s both;
+}
+.hero.visible .hero-copy > .actions,
+.hero.visible .hero-copy > .metrics {
+  animation: gentle-rise .64s ease .3s both;
+}
+.hero.visible .portrait-wrap {
+  animation: portrait-breathe 9s ease-in-out infinite;
+}
+.catalog-heading > .eyebrow { animation: gentle-rise .48s ease .04s both; }
+.catalog-heading > h1 { animation: gentle-rise .58s ease .12s both; }
+.catalog-heading > p:not(.eyebrow) { animation: gentle-rise .6s ease .18s both; }
+.catalog-heading > .catalog-tabs { animation: gentle-rise .6s ease .24s both; }
+.catalog-scroll-ready .catalog-project {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity .65s ease, transform .65s cubic-bezier(.2,.7,.3,1);
+}
+.catalog-scroll-ready .catalog-project.is-revealed {
+  opacity: 1;
+  transform: none;
+}
+.project-cover,
+.catalog-shot img {
+  transition: transform .45s cubic-bezier(.2,.7,.3,1);
+}
+.pill, .quick-work-links a, .catalog-tabs a {
+  transition: transform .24s ease, border-color .24s ease, background-color .24s ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .project-card:hover .project-cover,
+  .catalog-shot:hover img { transform: scale(1.025); }
+  .pill:hover,
+  .quick-work-links a:hover,
+  .catalog-tabs a:hover { transform: translateY(-2px); }
+}
+@media (max-width: 900px) {
+  .refreshed-nav {
+    justify-content: center;
+  }
+  .refreshed-nav .menu {
+    margin: 0;
+    order: 0;
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border: 1px solid rgba(138,164,255,.3);
+    border-radius: 14px;
+    background: rgba(18,23,33,.9);
+    box-shadow: 0 8px 30px rgba(0,0,0,.15);
+    transition: border-color .2s ease, background-color .2s ease;
+  }
+  .refreshed-nav .menu:hover,
+  .refreshed-nav .menu[aria-expanded="true"] {
+    background: #222d41;
+    border-color: var(--accent);
+  }
+  .refreshed-nav nav {
+    display: none;
+    left: 16px;
+    right: 16px;
+    width: auto;
+    max-height: calc(100dvh - 92px);
+    overflow-y: auto;
+    margin: 0;
+    padding: 12px;
+    gap: 3px;
+    border-radius: 16px;
+    animation: nav-appear .22s ease both;
+  }
+  .refreshed-nav nav.is-open { display: flex; }
+  .refreshed-nav nav a {
+    text-align: center;
+    padding: 12px 16px;
+    border-radius: 9px;
+    font-size: 14px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .refreshed-nav nav,
+  .hero.visible .hero-copy > *,
+  .hero.visible .portrait-wrap,
+  .catalog-heading > * { animation: none !important; }
+  .catalog-scroll-ready .catalog-project {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .project-cover, .catalog-shot img, .pill, .quick-work-links a, .catalog-tabs a {
+    transition: none;
+  }
+  .project-card:hover .project-cover,
+  .catalog-shot:hover img,
+  .pill:hover, .quick-work-links a:hover, .catalog-tabs a:hover { transform: none; }
+}
