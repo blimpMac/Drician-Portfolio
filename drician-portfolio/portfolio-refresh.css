@@ -150,3 +150,8 @@
   .catalog-shot:hover img,
   .pill:hover, .quick-work-links a:hover, .catalog-tabs a:hover { transform: none; }
 }
+
+/* Clearly distinguish source-based desktop UI previews from captured screenshots. */
+.catalog-notice{display:block;margin:-12px 0 22px;color:var(--muted);font-size:13px;line-height:1.55}
+.catalog-gallery.is-ui-preview .catalog-shot img{aspect-ratio:16 / 9;object-fit:contain;object-position:center;background:#e8edf5}
+.catalog-gallery.is-ui-preview .catalog-shot:first-child img{aspect-ratio:16 / 9}

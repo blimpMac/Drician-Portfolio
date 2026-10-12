@@ -161,7 +161,68 @@ window.portfolioProjects=[
     "glow": "#6f8cff"
   }
 ];
-window.portfolioProjects.forEach(project => { project.level = project.id === "messenger" ? "minor" : "major"; });
+window.portfolioProjects.push(...[
+  {
+    "id": "accounting-calculator",
+    "name": "Accounting Calculator (APT / EWT)",
+    "level": "minor",
+    "desc": "A compact Python desktop calculator for accounts payable trade, expanded withholding tax and VAT calculations.",
+    "url": "https://github.com/blimpMac/Accounting-Calculator",
+    "tags": [
+      "Python",
+      "Tkinter",
+      "Decimal",
+      "PyInstaller"
+    ],
+    "cat": "desktop",
+    "features": "Convert check amount to APT or APT to check amount, select 1% or 2% EWT, calculate input VAT and VAT-exclusive amount, and switch light/dark theme.",
+    "note": "Source-based visual preview of the native Tkinter interface, not a screenshot of the running Windows application. Example values are illustrative.",
+    "previewNotice": "UI recreation based on the project's Tkinter source (not a captured application screenshot). Example calculation shown.",
+    "screenshots": [
+      {
+        "src": "assets/projects/accounting-calculator-light.svg",
+        "caption": "Accounting Calculator — light theme (source-based preview)"
+      },
+      {
+        "src": "assets/projects/accounting-calculator-dark.svg",
+        "caption": "Accounting Calculator — dark theme (source-based preview)"
+      }
+    ],
+    "demo": null,
+    "glow": "#77aeff"
+  },
+  {
+    "id": "faculty-attendance",
+    "name": "Faculty Attendance System",
+    "level": "minor",
+    "desc": "A Python desktop tool for faculty check-in/check-out, record management and attendance reports.",
+    "url": "https://github.com/blimpMac/PythonFinals",
+    "tags": [
+      "Python",
+      "Tkinter",
+      "SQL Server",
+      "pyodbc",
+      "Matplotlib"
+    ],
+    "cat": "desktop",
+    "features": "Faculty ID check-in/check-out, faculty registration, attendance report table and analytics with a Microsoft SQL Server database.",
+    "note": "Source-based visual recreation of the main attendance and reports screens. A live SQL Server database was not connected.",
+    "previewNotice": "UI recreation based on the project's Tkinter source (not a captured application screenshot). Report data is intentionally empty.",
+    "screenshots": [
+      {
+        "src": "assets/projects/faculty-attendance-main.svg",
+        "caption": "Faculty Attendance — check-in screen (source-based preview)"
+      },
+      {
+        "src": "assets/projects/faculty-attendance-reports.svg",
+        "caption": "Faculty Attendance — reports screen (source-based preview)"
+      }
+    ],
+    "demo": null,
+    "glow": "#3a86ff"
+  }
+]);
+window.portfolioProjects.forEach(project => { project.level = project.level || (project.id === "messenger" ? "minor" : "major"); });
 window.portfolioSnippets = {
   "blockgo": {
     "path": "frontend/src/components/faculty/EncodingBanner.jsx",
@@ -188,3 +249,18 @@ window.portfolioSnippets = {
     "url": "https://github.com/blimpMac/React-MessengerStyle/blob/main/src/App.jsx"
   }
 };
+
+Object.assign(window.portfolioSnippets, {
+  "accounting-calculator": {
+    "path": "apt_calculator.py",
+    "language": "python",
+    "source": "def build_result_summary(amount: Decimal, ewt_rate: str, mode: str) -> dict:\n    rate = get_ewt_rate(ewt_rate)\n    q = Decimal('0.01')\n\n    if mode == 'Check Amount to APT':\n        apt = amount / (Decimal('1') - rate)\n        ewt = apt * rate\n        net_check = amount\n    else:\n        apt = amount\n        ewt = apt * rate\n        net_check = apt - ewt\n\n    apt = apt.quantize(q, rounding=ROUND_HALF_UP)\n    ewt = ewt.quantize(q, rounding=ROUND_HALF_UP)\n    net_check = net_check.quantize(q, rounding=ROUND_HALF_UP)\n    input_vat = (apt * Decimal('12') / Decimal('112')).quantize(q, rounding=ROUND_HALF_UP)\n    amount_less_vat = (apt / Decimal('1.12')).quantize(q, rounding=ROUND_HALF_UP)\n\n    return {\n        'apt': apt,\n        'ewt': ewt,\n        'input_vat': input_vat,\n        'amount_less_vat': amount_less_vat,\n        'net_check': net_check,\n    }",
+    "url": "https://github.com/blimpMac/Accounting-Calculator/blob/master/apt_calculator.py"
+  },
+  "faculty-attendance": {
+    "path": "attendance_app.py",
+    "language": "python",
+    "source": "def record(self, action):\n        fid = self.id_entry.get().strip()\n        if not fid:\n            messagebox.showwarning(\"Input Error\", \"Please enter Faculty ID.\")\n            return\n        f = self.controller.db_manager.load_faculty_info(fid)\n        if not f:\n            messagebox.showerror(\"Error\", f\"Faculty '{fid}' not found.\")\n            return\n        sql = \"INSERT INTO dbo.Attendance (FacultyID, Action, TimeStamp) VALUES (?, ?, ?)\"\n        ok, res = self.controller.db_manager.execute_non_query(sql, (fid, action, datetime.now()))\n        if ok:\n            messagebox.showinfo(\"Success\", f\"{f.full_name} successfully marked for {action}.\")\n        else:\n            messagebox.showerror(\"Error\", f\"DB Error: {res}\")\n        self.id_entry.delete(0, tk.END)",
+    "url": "https://github.com/blimpMac/PythonFinals/blob/main/attendance_app.py"
+  }
+});

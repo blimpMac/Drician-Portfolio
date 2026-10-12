@@ -151,3 +151,14 @@ The featured projects are BlockGo, Digital Survey System (`ASPNet2.0`), Library 
 Screenshot assets are stored in `assets/projects/`. Survey/Library captures contain sample data and BlockGo captures contain demo profiles, as labeled in each showcase. To add a demo reel later, set the relevant project's `demo` field in `script.js` to a local video path or hosted video URL. The video player remains hidden until that field is populated.
 
 Netlify must have this repository connected, `main` selected as its production branch, and automatic builds enabled. Set the base directory to `drician-portfolio` so its `netlify.toml`, publish directory and functions resolve correctly. The repository alone cannot confirm those Netlify dashboard settings or the live site URL.
+
+## Minor works: native desktop application previews
+
+The Minor Works page includes two additional projects from the linked GitHub account:
+
+- **APT / EWT Accounting Calculator** — [Accounting-Calculator](https://github.com/blimpMac/Accounting-Calculator), a Python/Tkinter desktop utility with light/dark themes. Its code excerpt is taken from `apt_calculator.py`.
+- **Faculty Attendance System** — [PythonFinals](https://github.com/blimpMac/PythonFinals), a Tkinter desktop app with faculty check-in/out, reports and analytics. Its code excerpt is taken from `attendance_app.py`.
+
+The four SVG interface images in `assets/projects/` are **source-based visual reconstructions, not runtime screenshots**, because the original project repositories do not contain screenshots. They are labeled accordingly on the page. To replace them with real captures, take screenshots from the desktop applications, add the resulting images to `assets/projects/`, update each project's `screenshots` entries in `projects-data.js`, and remove its `previewNotice` after the assets are verified.
+
+`projects-data.js` holds the Minor Works catalog and excerpts; `catalog.js` renders the project gallery and code block. Keep source links aligned with the code excerpt's repository and branch.
