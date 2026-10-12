@@ -2,8 +2,8 @@
 
 This version includes:
 
-- The **DC icon and “Drician Cordon” label have been removed** from the upper-left navigation.
-- Clean portrait with no floating labels or overlay cards.
+- The header is now a **compact floating navigation bar centered at the top** on desktop, with a centered hamburger menu on mobile and no left-side branding.
+- The portrait has been removed from the homepage and the public assets; the hero now uses centered typography, action buttons, and subtle background lighting.
 - Resume and CV preview modals, plus PDF and DOCX downloads.
 - Private-recipient contact form through Netlify Forms.
 - Visitor analytics stored in Supabase.
