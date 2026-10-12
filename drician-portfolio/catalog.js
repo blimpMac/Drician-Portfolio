@@ -20,4 +20,18 @@
   article.append(head,gallery,meta,source);root.append(article);
  }
  if(!projects.length)root.append(el('p','', 'New project showcases will appear here.'));
+ // Let each long project section ease into view once, without delaying content for reduced-motion users.
+ if (projects.length && 'IntersectionObserver' in window &&
+     !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+  const observer = new IntersectionObserver((entries, instance) => {
+   entries.forEach(entry => {
+    if (entry.isIntersecting) {
+     entry.target.classList.add('is-revealed');
+     instance.unobserve(entry.target);
+    }
+   });
+  }, { threshold: 0.06, rootMargin: '0px 0px -20px 0px' });
+  root.classList.add('catalog-scroll-ready');
+  root.querySelectorAll('.catalog-project').forEach(article => observer.observe(article));
+ }
 })();
