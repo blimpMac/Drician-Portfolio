@@ -24,13 +24,11 @@
  const alignHash=(behavior='auto')=>{
   const target=targetFromHash(window.location.hash);
   if(!target)return;
-  // CSS scroll-margin-top and internal section padding keep headings below the fixed header.
   target.scrollIntoView({block:'start',behavior:reducedMotion()?'auto':behavior});
  };
  toggle.addEventListener('click',()=>nav.classList.contains('is-open')?close():open());
  nav.querySelectorAll('a').forEach(link=>link.addEventListener('click',close));
 
- // Handle all on-page anchors, including Explore Projects, without leaving a heading under the header.
  document.addEventListener('click',event=>{
   const link=event.target.closest?.('a[href^="#"]');
   if(!link || event.defaultPrevented || event.button!==0 ||
@@ -53,13 +51,52 @@
  window.addEventListener('hashchange',()=>alignHash('auto'));
  window.addEventListener('popstate',()=>alignHash('auto'));
 
- // Direct links from a different page can initially scroll before fonts and layout finish.
- // Re-align after loading so the requested section starts in the expected position.
  window.addEventListener('load',()=>{
   if(!window.location.hash)return;
   requestAnimationFrame(()=>alignHash('auto'));
   if(document.fonts?.ready)document.fonts.ready.then(()=>alignHash('auto')).catch(()=>{});
  });
+
+ const sharpReelParts=[
+  'assets/demo-reel-sharp/part-00.b64',
+  'assets/demo-reel-sharp/part-01.b64',
+  'assets/demo-reel-sharp/part-02.b64',
+  'assets/demo-reel-sharp/part-03.b64',
+  'assets/demo-reel-sharp/part-04.b64',
+  'assets/demo-reel-sharp/part-05.b64',
+  'assets/demo-reel-sharp/part-06a.b64',
+  'assets/demo-reel-sharp/part-06b.b64',
+  'assets/demo-reel-sharp/part-07a.b64',
+  'assets/demo-reel-sharp/part-07b.b64',
+  'assets/demo-reel-sharp/part-08.b64',
+  'assets/demo-reel-sharp/part-09.b64',
+  'assets/demo-reel-sharp/part-10.b64'
+ ];
+ const decodeBase64=(value)=>{
+  const binary=atob(value.replace(/\s+/g,''));
+  const bytes=new Uint8Array(binary.length);
+  for(let i=0;i<binary.length;i++)bytes[i]=binary.charCodeAt(i);
+  return bytes;
+ };
+ const loadSharpDemoReel=async(video)=>{
+  if(!video)return;
+  video.setAttribute('aria-busy','true');
+  try{
+   const chunks=await Promise.all(sharpReelParts.map(async url=>{
+    const response=await fetch(url,{cache:'force-cache'});
+    if(!response.ok)throw new Error(`Unable to load demo reel part: ${response.status}`);
+    return decodeBase64(await response.text());
+   }));
+   const blobUrl=URL.createObjectURL(new Blob(chunks,{type:'video/mp4'}));
+   video.src=blobUrl;
+   video.load();
+   window.addEventListener('pagehide',()=>URL.revokeObjectURL(blobUrl),{once:true});
+  }catch(error){
+   console.warn('Sharper demo reel could not be loaded; using fallback video.',error);
+  }finally{
+   video.removeAttribute('aria-busy');
+  }
+ };
 
  // Homepage demo reel: inserted immediately below the fixed header and before the hero.
  const homepage=document.querySelector('main#top');
@@ -81,12 +118,13 @@
     <p>This short reel highlights selected projects and interfaces from my portfolio, showing how I approach practical software, automation, and user-focused development.</p>
    </div>
    <div class="demo-reel-frame">
-    <video controls playsinline preload="metadata" width="640" height="360" aria-label="BlimpMac portfolio demo reel">
+    <video controls playsinline preload="none" width="640" height="360" aria-label="BlimpMac portfolio demo reel">
      <source src="assets/demo-reel.mp4" type="video/mp4">
      Your browser does not support HTML5 video.
     </video>
    </div>`;
   homepage.prepend(section);
+  loadSharpDemoReel(section.querySelector('video'));
   requestAnimationFrame(()=>section.classList.add('visible'));
  }
 })();
