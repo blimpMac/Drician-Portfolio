@@ -26,7 +26,7 @@
 }
 
 .demo-reel-frame {
-  width: min(100%, 640px);
+  width: min(100%, 1000px);
   margin-inline: auto;
   overflow: hidden;
   border: 1px solid var(--line);
