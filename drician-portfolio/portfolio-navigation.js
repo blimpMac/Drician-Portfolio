@@ -60,4 +60,33 @@
   requestAnimationFrame(()=>alignHash('auto'));
   if(document.fonts?.ready)document.fonts.ready.then(()=>alignHash('auto')).catch(()=>{});
  });
+
+ // Homepage demo reel: inserted immediately below the fixed header and before the hero.
+ const homepage=document.querySelector('main#top');
+ if(homepage && document.querySelector('.hero.hero-centered') && !document.querySelector('.demo-reel-section')){
+  if(!document.querySelector('link[href="demo-reel.css"]')){
+   const stylesheet=document.createElement('link');
+   stylesheet.rel='stylesheet';
+   stylesheet.href='demo-reel.css';
+   document.head.appendChild(stylesheet);
+  }
+
+  const section=document.createElement('section');
+  section.className='demo-reel-section reveal';
+  section.setAttribute('aria-labelledby','demoReelTitle');
+  section.innerHTML=`
+   <div class="demo-reel-copy">
+    <p class="eyebrow">DEMO REEL</p>
+    <h2 id="demoReelTitle">A quick look at my work in action.</h2>
+    <p>This short reel highlights selected projects and interfaces from my portfolio, showing how I approach practical software, automation, and user-focused development.</p>
+   </div>
+   <div class="demo-reel-frame">
+    <video controls playsinline preload="metadata" width="640" height="360" aria-label="BlimpMac portfolio demo reel">
+     <source src="assets/demo-reel.mp4" type="video/mp4">
+     Your browser does not support HTML5 video.
+    </video>
+   </div>`;
+  homepage.prepend(section);
+  requestAnimationFrame(()=>section.classList.add('visible'));
+ }
 })();
