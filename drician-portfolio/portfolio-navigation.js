@@ -57,9 +57,21 @@
   if(document.fonts?.ready)document.fonts.ready.then(()=>alignHash('auto')).catch(()=>{});
  });
 
- const sharpReelParts=Array.from({length:17},(_,index)=>
-  `assets/demo-reel-sharp/part-${String(index).padStart(2,'0')}.b64`
- );
+ const sharpReelParts=[
+  'assets/demo-reel-sharp/part-00.b64',
+  'assets/demo-reel-sharp/part-01.b64',
+  'assets/demo-reel-sharp/part-02.b64',
+  'assets/demo-reel-sharp/part-03.b64',
+  'assets/demo-reel-sharp/part-04.b64',
+  'assets/demo-reel-sharp/part-05.b64',
+  'assets/demo-reel-sharp/part-06a.b64',
+  'assets/demo-reel-sharp/part-06b.b64',
+  'assets/demo-reel-sharp/part-07a.b64',
+  'assets/demo-reel-sharp/part-07b.b64',
+  'assets/demo-reel-sharp/part-08.b64',
+  'assets/demo-reel-sharp/part-09.b64',
+  'assets/demo-reel-sharp/part-10.b64'
+ ];
  const decodeBase64=(value)=>{
   const binary=atob(value.replace(/\s+/g,''));
   const bytes=new Uint8Array(binary.length);
