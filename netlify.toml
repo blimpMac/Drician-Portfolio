@@ -1,3 +1,4 @@
+# Redeploy trigger: 2026-10-19
 [build]
   publish = "drician-portfolio"
   functions = "drician-portfolio/netlify/functions"
